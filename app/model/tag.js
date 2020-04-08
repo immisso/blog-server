@@ -2,7 +2,7 @@
  * @Author: 柒叶
  * @Date: 2020-04-07 10:39:17
  * @Last Modified by: 柒叶
- * @Last Modified time: 2020-04-07 10:55:31
+ * @Last Modified time: 2020-04-07 12:07:37
  */
 
 'use strict';
@@ -32,7 +32,7 @@ module.exports = app => {
     },
   });
   Tag.associate = () => {
-    app.model.Tag.belongsTo(app.model.Category, 'category');
+    app.model.Tag.belongsTo(app.model.Category, { as: 'category' });
     app.model.Tag.hasMany(app.model.Article, { as: 'article' });
   };
   return Tag;

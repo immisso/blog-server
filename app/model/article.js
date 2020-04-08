@@ -2,7 +2,7 @@
  * @Author: 柒叶
  * @Date: 2020-04-07 10:40:54
  * @Last Modified by: 柒叶
- * @Last Modified time: 2020-04-07 10:51:40
+ * @Last Modified time: 2020-04-07 12:33:47
  */
 
 'use strict';
@@ -84,7 +84,7 @@ module.exports = app => {
   });
   Article.associate = () => {
     app.model.Article.belongsTo(app.model.User, { as: 'user' });
-    app.model.Article.hasMany(app.model.Comment, { as: 'comment' });
+    app.model.Article.hasMany(app.model.Comment, { as: 'comments' });
   };
   return Article;
 };

@@ -10,6 +10,7 @@
     "egg": "^2.15.1",
     "egg-scripts": "^2.11.0",
     "egg-sequelize": "^5.2.1",
+    "egg-validate": "^2.0.2",
     "mysql2": "^2.1.0",
     "sequelize-cli": "^5.5.1"
   },

@@ -23,6 +23,11 @@ module.exports = {
         en_name: 'react',
         category_id: 3,
       },
+      {
+        name: 'Python',
+        en_name: 'python',
+        category_id: 2,
+      },
     ], {});
   },
 
