@@ -13,6 +13,11 @@ class HomeController extends Controller {
     const articles = await ctx.service.home.articles();
     ctx.body = Success(200, 'Success', articles);
   }
+  async hot() {
+    const { ctx } = this;
+    const hot = await ctx.service.home.hots();
+    ctx.body = Success(200, 'Success', hot);
+  }
 }
 
 module.exports = HomeController;

@@ -7,4 +7,5 @@ module.exports = app => {
   const { router, controller } = app;
   router.get('/api/categories', controller.home.categories);
   router.get('/api/articles', controller.home.articles);
+  router.get('/api/hot', controller.home.hot);
 };
