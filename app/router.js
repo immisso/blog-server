@@ -8,4 +8,5 @@ module.exports = app => {
   router.get('/api/categories', controller.home.categories);
   router.get('/api/articles', controller.home.articles);
   router.get('/api/hot', controller.home.hot);
+  router.get('/api/detail', controller.article.detail);
 };

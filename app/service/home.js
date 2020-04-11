@@ -2,7 +2,7 @@
  * @Author: 柒叶
  * @Date: 2020-04-07 11:12:11
  * @Last Modified by: 柒叶
- * @Last Modified time: 2020-04-09 13:32:31
+ * @Last Modified time: 2020-04-11 18:46:39
  */
 
 'use strict';
@@ -42,7 +42,7 @@ class Home extends Service {
     return this.ctx.model.Article.findAll({
       order: [[ 'view', 'DESC' ]],
       limit: 10,
-      attributes: [ 'view', 'title', 'like', 'id' ],
+      attributes: [ 'view', 'title', 'like', 'id', 'comment' ],
     });
   }
 }
