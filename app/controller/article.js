@@ -2,7 +2,7 @@
  * @Author: 柒叶
  * @Date: 2020-04-10 07:04:07
  * @Last Modified by: 柒叶
- * @Last Modified time: 2020-04-12 18:29:38
+ * @Last Modified time: 2020-04-13 07:50:34
  */
 'use strict';
 
@@ -47,6 +47,11 @@ class ArticleController extends Controller {
     );
     const createComment = await ctx.service.article.createToursitComment(ctx.request.body);
     ctx.body = Success(200, 'Success', createComment);
+  }
+
+  async tags() {
+    const { ctx } = this;
+    ctx.body = Success(200, 'Success', await ctx.model.Tag.findAll());
   }
 }
 

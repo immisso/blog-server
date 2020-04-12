@@ -10,6 +10,7 @@ module.exports = app => {
   router.get('/api/hot', controller.home.hot);
   router.get('/api/detail', controller.article.detail);
   router.get('/api/comments', controller.article.comments);
+  router.get('/api/tags', controller.article.tags);
 
   router.post('/api/toursit/comment', controller.article.toursitComment);
 };
