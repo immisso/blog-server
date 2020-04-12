@@ -32,6 +32,26 @@ module.exports = {
         defaultValue: null,
         comment: '用户头像',
       },
+      website: {
+        type: Sequelize.STRING(300),
+        defaultValue: null,
+        comment: '个人网址',
+      },
+      github: {
+        type: Sequelize.STRING(300),
+        defaultValue: null,
+        comment: 'github地址',
+      },
+      gitee: {
+        type: Sequelize.STRING(300),
+        defaultValue: null,
+        comment: 'gitee地址',
+      },
+      weibo: {
+        type: Sequelize.STRING(300),
+        defaultValue: null,
+        comment: '微博',
+      },
       total_view: {
         type: Sequelize.INTEGER,
         defaultValue: 0,
@@ -58,6 +78,10 @@ module.exports = {
         defaultValue: 1,
         comment: '1->正常,2->删除',
       },
+      account_type: {
+        type: Sequelize.ENUM('ADMIN', 'GENERAL', 'TOURIST'),
+        defaultValue: 'GENERAL',
+      },
       created_at: {
         type: Sequelize.DATE,
         allowNull: false,
@@ -68,7 +92,7 @@ module.exports = {
         allowNull: false,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
       },
-    }).then(() => queryInterface.addIndex('users', [ 'email', 'status' ]));
+    }).then(() => queryInterface.addIndex('users', [ 'email', 'status', 'account_type' ]));
   },
 
   down: (queryInterface, Sequelize) => {

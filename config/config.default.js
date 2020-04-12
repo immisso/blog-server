@@ -30,6 +30,7 @@ module.exports = appInfo => {
     port: PORT,
     username: USERNAME,
     password: PASSWORD,
+    logging: false,
   };
 
   config.security = {

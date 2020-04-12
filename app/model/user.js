@@ -2,16 +2,17 @@
  * @Author: 柒叶
  * @Date: 2020-04-07 09:16:51
  * @Last Modified by: 柒叶
- * @Last Modified time: 2020-04-07 10:48:54
+ * @Last Modified time: 2020-04-12 17:33:08
  */
 
 'use strict';
 module.exports = app => {
-  const { STRING, INTEGER, TEXT } = app.Sequelize;
+  const { STRING, INTEGER, TEXT, ENUM } = app.Sequelize;
   const User = app.model.define('users', {
     id: {
       primaryKey: true,
       type: INTEGER,
+      autoIncrement: true,
     },
     username: {
       type: STRING(50),
@@ -32,6 +33,26 @@ module.exports = app => {
     avatar: {
       type: STRING(300),
       defaultValue: null,
+    },
+    website: {
+      type: STRING(300),
+      defaultValue: null,
+      comment: '个人网址',
+    },
+    github: {
+      type: STRING(300),
+      defaultValue: null,
+      comment: 'github地址',
+    },
+    gitee: {
+      type: STRING(300),
+      defaultValue: null,
+      comment: 'gitee地址',
+    },
+    weibo: {
+      type: STRING(300),
+      defaultValue: null,
+      comment: '微博',
     },
     total_view: {
       type: INTEGER,
@@ -58,6 +79,10 @@ module.exports = app => {
       type: INTEGER,
       defaultValue: 1,
       comment: '1->正常,2->删除',
+    },
+    account_type: {
+      type: ENUM('ADMIN', 'GENERAL', 'TOURIST'),
+      defaultValue: 'GENERAL',
     },
   });
   User.associate = () => {
