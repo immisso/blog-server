@@ -2,7 +2,7 @@
  * @Author: 柒叶
  * @Date: 2020-04-07 11:12:11
  * @Last Modified by: 柒叶
- * @Last Modified time: 2020-04-11 18:46:39
+ * @Last Modified time: 2020-04-13 13:48:50
  */
 
 'use strict';
@@ -19,8 +19,10 @@ class Home extends Service {
       ],
     });
   }
-  async articles() {
-    return this.ctx.model.Article.findAll({
+  async articles({ page, pageSize }) {
+    const { count, rows } = await this.ctx.model.Article.findAndCountAll({
+      offset: (parseInt(page) - 1) * parseInt(pageSize),
+      limit: parseInt(pageSize),
       include: [
         {
           model: this.ctx.model.Tag,
@@ -37,6 +39,7 @@ class Home extends Service {
         },
       ],
     });
+    return { count, articles: rows };
   }
   async hots() {
     return this.ctx.model.Article.findAll({

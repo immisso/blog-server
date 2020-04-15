@@ -2,7 +2,7 @@
  * @Author: 柒叶
  * @Date: 2020-04-10 07:04:23
  * @Last Modified by: 柒叶
- * @Last Modified time: 2020-04-12 18:34:56
+ * @Last Modified time: 2020-04-13 20:33:33
  */
 
 'use strict';
@@ -35,6 +35,10 @@ class Article extends Service {
             'total_comment',
             'profession',
             'avatar',
+            'github',
+            'weibo',
+            'website',
+            'gitee',
           ],
         },
       ],

@@ -10,7 +10,15 @@ class HomeController extends Controller {
   }
   async articles() {
     const { ctx } = this;
-    const articles = await ctx.service.home.articles();
+    ctx.validate(
+      {
+        page: { type: 'string' },
+        pageSize: { type: 'string' },
+      },
+      ctx.query
+    );
+
+    const articles = await ctx.service.home.articles(ctx.query);
     ctx.body = Success(200, 'Success', articles);
   }
   async hot() {
