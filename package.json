@@ -38,7 +38,8 @@
     "ci": "npm run lint && npm run cov",
     "autod": "autod",
     "migrate": "npx sequelize db:migrate",
-    "seed": "npx sequelize db:seed:all"
+    "seed": "npx sequelize db:seed:all",
+    "generate":"npx sequelize migration:generate --name"
   },
   "ci": {
     "version": "10"
