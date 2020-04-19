@@ -2,7 +2,7 @@
  * @Author: 柒叶
  * @Date: 2020-04-18 12:22:27
  * @Last Modified by: 柒叶
- * @Last Modified time: 2020-04-18 12:25:15
+ * @Last Modified time: 2020-04-18 18:42:02
  */
 
 'use strict';
@@ -23,17 +23,7 @@ module.exports = app => {
       type: INTEGER,
       allowNull: false,
     },
-    content: {
-      type: TEXT,
-      defaultValue: null,
-      comment: '文本内容',
-    },
-    content_html: {
-      type: TEXT,
-      defaultValue: null,
-      comment: 'html内容',
-    },
-    content_mark: {
+    markdown: {
       type: TEXT,
       defaultValue: null,
       comment: 'markdown内容',

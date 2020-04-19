@@ -21,17 +21,7 @@ module.exports = {
           key: 'id',
         },
       },
-      content: {
-        type: Sequelize.TEXT,
-        defaultValue: null,
-        comment: '文本内容',
-      },
-      content_html: {
-        type: Sequelize.TEXT,
-        defaultValue: null,
-        comment: 'html内容',
-      },
-      content_mark: {
+      markdown: {
         type: Sequelize.TEXT,
         defaultValue: null,
         comment: 'markdown内容',

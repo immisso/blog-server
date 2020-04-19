@@ -11,6 +11,9 @@ module.exports = app => {
   router.get('/api/detail', controller.article.detail);
   router.get('/api/comments', controller.article.comments);
   router.get('/api/tags', controller.article.tags);
+  router.get('/api/draft', controller.write.draft);
 
   router.post('/api/toursit/comment', controller.article.toursitComment);
+  router.post('/api/create/draft', controller.write.createDraft);
+  router.post('/api/update/draft', controller.write.updateDraft);
 };
