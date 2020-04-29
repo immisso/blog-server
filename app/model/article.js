@@ -2,7 +2,7 @@
  * @Author: 柒叶
  * @Date: 2020-04-07 10:40:54
  * @Last Modified by: 柒叶
- * @Last Modified time: 2020-04-12 18:33:30
+ * @Last Modified time: 2020-04-25 18:51:57
  */
 
 'use strict';
@@ -28,6 +28,11 @@ module.exports = app => {
     abstract: {
       type: STRING(500),
       defaultValue: null,
+    },
+    cover: {
+      type: STRING,
+      defaultValue: null,
+      comment: '封面图片',
     },
     content: {
       type: TEXT,

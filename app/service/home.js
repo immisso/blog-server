@@ -2,7 +2,7 @@
  * @Author: 柒叶
  * @Date: 2020-04-07 11:12:11
  * @Last Modified by: 柒叶
- * @Last Modified time: 2020-04-13 13:48:50
+ * @Last Modified time: 2020-04-27 14:06:55
  */
 
 'use strict';
@@ -23,6 +23,7 @@ class Home extends Service {
     const { count, rows } = await this.ctx.model.Article.findAndCountAll({
       offset: (parseInt(page) - 1) * parseInt(pageSize),
       limit: parseInt(pageSize),
+      order: [[ 'createdAt', 'DESC' ]],
       include: [
         {
           model: this.ctx.model.Tag,

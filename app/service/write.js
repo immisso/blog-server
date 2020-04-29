@@ -2,7 +2,7 @@
  * @Author: 柒叶
  * @Date: 2020-04-18 18:23:10
  * @Last Modified by: 柒叶
- * @Last Modified time: 2020-04-21 12:45:42
+ * @Last Modified time: 2020-04-27 13:49:30
  */
 
 'use strict';
@@ -35,13 +35,14 @@ class Write extends Service {
   }
 
   async createPublish(params) {
-    const { markdown, title, html, selectedTag, selectedCategory } = params;
+    const { markdown, title, html, selectedTag, selectedCategory, coverImageUrl } = params;
     return this.ctx.model.Article.create({
       content_mark: markdown,
       title,
       content_html: html,
       tag_id: selectedTag,
       category_id: selectedCategory,
+      cover: coverImageUrl,
       user_id: 1,
     });
   }
