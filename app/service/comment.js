@@ -2,7 +2,7 @@
  * @Author: 柒叶
  * @Date: 2020-04-29 17:41:41
  * @Last Modified by: 柒叶
- * @Last Modified time: 2020-04-29 17:45:53
+ * @Last Modified time: 2020-04-30 07:22:58
  */
 
 'use strict';
@@ -28,6 +28,17 @@ class Comment extends Service {
             'total_comment',
             'profession',
             'avatar',
+          ],
+        },
+        {
+          model: this.ctx.model.Article,
+          as: 'article',
+          attributes: [
+            'view',
+            'title',
+            'like',
+            'id',
+            'comment',
           ],
         },
       ],

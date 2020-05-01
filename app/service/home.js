@@ -2,7 +2,7 @@
  * @Author: 柒叶
  * @Date: 2020-04-07 11:12:11
  * @Last Modified by: 柒叶
- * @Last Modified time: 2020-04-27 14:06:55
+ * @Last Modified time: 2020-04-30 07:41:06
  */
 
 'use strict';
@@ -24,6 +24,7 @@ class Home extends Service {
       offset: (parseInt(page) - 1) * parseInt(pageSize),
       limit: parseInt(pageSize),
       order: [[ 'createdAt', 'DESC' ]],
+      attributes: [ 'view', 'title', 'like', 'id', 'comment', 'cover' ],
       include: [
         {
           model: this.ctx.model.Tag,

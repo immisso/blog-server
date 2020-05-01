@@ -20,4 +20,11 @@ module.exports = app => {
   router.post('/api/create/publish', controller.write.createPublish);
 
   router.get('/api/admin/comments', controller.admin.comments);
+  router.get('/api/admin/categories', controller.admin.categories);
+  router.get('/api/admin/tags', controller.admin.tags);
+
+  router.post('/api/admin/create/category', controller.admin.createCategory);
+  router.post('/api/admin/delete/category', controller.admin.deleteCategory);
+  router.post('/api/admin/create/tag', controller.admin.createTag);
+  router.post('/api/admin/delete/tag', controller.admin.deleteTag);
 };
