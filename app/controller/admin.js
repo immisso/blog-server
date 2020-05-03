@@ -2,7 +2,7 @@
  * @Author: 柒叶
  * @Date: 2020-04-29 17:30:18
  * @Last Modified by: 柒叶
- * @Last Modified time: 2020-05-01 17:55:33
+ * @Last Modified time: 2020-05-02 19:47:04
  */
 
 'use strict';
@@ -21,7 +21,7 @@ class AdminController extends Controller {
       ctx.query
     );
 
-    const articles = await ctx.service.home.articles(ctx.query);
+    const articles = await ctx.service.article.articles(ctx.query);
     ctx.body = Success(200, 'Success', articles);
   }
   async comments() {
@@ -80,6 +80,26 @@ class AdminController extends Controller {
     });
     const { id } = ctx.request.body;
     await ctx.service.tag.deleteTag(id);
+    ctx.body = Success(200, 'Success', { id });
+  }
+
+  async deleteComment() {
+    const { ctx } = this;
+    ctx.validate({
+      id: { type: 'int' },
+    });
+    const { id } = ctx.request.body;
+    await ctx.service.comment.deleteComment(id);
+    ctx.body = Success(200, 'Success', { id });
+  }
+
+  async deleteArticle() {
+    const { ctx } = this;
+    ctx.validate({
+      id: { type: 'int' },
+    });
+    const { id } = ctx.request.body;
+    await ctx.service.article.deleteArticle(id);
     ctx.body = Success(200, 'Success', { id });
   }
 }

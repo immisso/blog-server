@@ -22,9 +22,12 @@ module.exports = app => {
   router.get('/api/admin/comments', controller.admin.comments);
   router.get('/api/admin/categories', controller.admin.categories);
   router.get('/api/admin/tags', controller.admin.tags);
+  router.get('/api/admin/articles', controller.admin.articles);
 
   router.post('/api/admin/create/category', controller.admin.createCategory);
   router.post('/api/admin/delete/category', controller.admin.deleteCategory);
   router.post('/api/admin/create/tag', controller.admin.createTag);
   router.post('/api/admin/delete/tag', controller.admin.deleteTag);
+  router.post('/api/admin/delete/comment', controller.admin.deleteComment);
+  router.post('/api/admin/delete/article', controller.admin.deleteArticle);
 };

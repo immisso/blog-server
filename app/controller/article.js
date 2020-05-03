@@ -2,7 +2,7 @@
  * @Author: 柒叶
  * @Date: 2020-04-10 07:04:07
  * @Last Modified by: 柒叶
- * @Last Modified time: 2020-04-13 07:50:34
+ * @Last Modified time: 2020-05-02 19:55:19
  */
 'use strict';
 
@@ -30,7 +30,7 @@ class ArticleController extends Controller {
       },
       ctx.query
     );
-    const comments = await ctx.service.article.comments(ctx.query);
+    const comments = await ctx.service.comment.comments(ctx.query);
     ctx.body = Success(200, 'Success', comments);
   }
 
@@ -45,7 +45,7 @@ class ArticleController extends Controller {
         article_id: { type: 'string' },
       }
     );
-    const createComment = await ctx.service.article.createToursitComment(ctx.request.body);
+    const createComment = await ctx.service.comment.createToursitComment(ctx.request.body);
     ctx.body = Success(200, 'Success', createComment);
   }
 
