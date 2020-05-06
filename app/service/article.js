@@ -2,17 +2,21 @@
  * @Author: 柒叶
  * @Date: 2020-04-10 07:04:23
  * @Last Modified by: 柒叶
- * @Last Modified time: 2020-05-02 19:56:59
+ * @Last Modified time: 2020-05-04 14:52:47
  */
 
 'use strict';
 const Service = require('egg').Service;
+const { literal } = require('sequelize');
 // const { generatePassWord } = require('../lib/tool_helper');
 
 class Article extends Service {
-  async articles({ page, pageSize }) {
+  async articles({ page, pageSize, category, tag }) {
+    const where = { status: 1 };
+    if (category) where.category_id = category;
+    if (tag) where.tag_id = tag;
     const { count, rows } = await this.ctx.model.Article.findAndCountAll({
-      where: { status: 1 },
+      where,
       offset: (parseInt(page) - 1) * parseInt(pageSize),
       limit: parseInt(pageSize),
       order: [[ 'createdAt', 'DESC' ]],
@@ -104,6 +108,30 @@ class Article extends Service {
   async deleteArticle(id) {
     return this.ctx.model.Article.update({
       status: 2,
+    }, {
+      where: { id },
+    });
+  }
+
+  async viewPlusOne(id) {
+    return this.ctx.model.Article.update({
+      view: literal('view + 1'),
+    }, {
+      where: { id },
+    });
+  }
+
+  async likePlusOne(id) {
+    return this.ctx.model.Article.update({
+      like: literal('like + 1'),
+    }, {
+      where: { id },
+    });
+  }
+
+  async commentPlusOne(id) {
+    return this.ctx.model.Article.update({
+      comment: literal('comment + 1'),
     }, {
       where: { id },
     });

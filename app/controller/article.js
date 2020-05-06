@@ -2,7 +2,7 @@
  * @Author: 柒叶
  * @Date: 2020-04-10 07:04:07
  * @Last Modified by: 柒叶
- * @Last Modified time: 2020-05-02 19:55:19
+ * @Last Modified time: 2020-05-04 15:56:55
  */
 'use strict';
 
@@ -18,7 +18,11 @@ class ArticleController extends Controller {
       },
       ctx.query
     );
-    const detail = await ctx.service.article.detail(ctx.query);
+    const [ , detail ] = await Promise.all([
+      ctx.service.article.viewPlusOne(ctx.query.id),
+      ctx.service.article.detail(ctx.query),
+    ]);
+    await ctx.service.user.viewPlusOne(detail.user.id);
     ctx.body = Success(200, 'Success', detail);
   }
 
@@ -43,15 +47,22 @@ class ArticleController extends Controller {
         website: { type: 'url' },
         content: { type: 'string' },
         article_id: { type: 'string' },
+        author: { type: 'int' },
       }
     );
-    const createComment = await ctx.service.comment.createToursitComment(ctx.request.body);
+
+    const { author, article_id } = ctx.request.body;
+    const [ createComment ] = await Promise.all([
+      ctx.service.comment.createToursitComment(ctx.request.body),
+      ctx.service.user.commentPlusOne(author),
+      ctx.service.article.commentPlusOne(article_id),
+    ]);
     ctx.body = Success(200, 'Success', createComment);
   }
 
   async tags() {
     const { ctx } = this;
-    ctx.body = Success(200, 'Success', await ctx.model.Tag.findAll());
+    ctx.body = Success(200, 'Success', await ctx.service.tag.tags());
   }
 }
 

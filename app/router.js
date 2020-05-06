@@ -5,6 +5,7 @@
  */
 module.exports = app => {
   const { router, controller } = app;
+
   router.get('/api/categories', controller.home.categories);
   router.get('/api/articles', controller.home.articles);
   router.get('/api/hot', controller.home.hot);
@@ -30,4 +31,7 @@ module.exports = app => {
   router.post('/api/admin/delete/tag', controller.admin.deleteTag);
   router.post('/api/admin/delete/comment', controller.admin.deleteComment);
   router.post('/api/admin/delete/article', controller.admin.deleteArticle);
+
+  router.post('/api/login', controller.user.login);
+  router.post('/api/register', controller.user.register);
 };
