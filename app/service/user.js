@@ -2,7 +2,7 @@
  * @Author: 柒叶
  * @Date: 2020-05-04 15:04:35
  * @Last Modified by: 柒叶
- * @Last Modified time: 2020-05-06 13:03:33
+ * @Last Modified time: 2020-05-07 17:59:25
  */
 
 'use strict';
@@ -26,7 +26,7 @@ class User extends Service {
   async findUser(data) {
     const { email } = data;
     return this.ctx.model.User.findOne({
-      where: { email },
+      where: { email, status: 1 },
     });
   }
   async viewPlusOne(id) {

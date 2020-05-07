@@ -18,7 +18,12 @@ module.exports = appInfo => {
   config.keys = appInfo.name + '_1586057841215_9419';
 
   // add your middleware config here
-  config.middleware = [];
+  config.middleware = [ 'auth' ];
+
+  config.auth = {
+    enable: true,
+    ignore: [ '/api/categories', '/api/login', '/api/register' ],
+  };
 
   config.sequelize = {
     dialect: 'mysql',
@@ -42,6 +47,11 @@ module.exports = appInfo => {
   // add your user config here
   const userConfig = {
     // myAppName: 'egg',
+    onerror: {
+      all(err, ctx) {
+        ctx.body = { status: err.status, msg: err.message };
+      },
+    },
   };
 
   return {
