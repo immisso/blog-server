@@ -36,4 +36,5 @@ module.exports = app => {
 
   router.post('/api/login', controller.user.login);
   router.post('/api/register', controller.user.register);
+  router.post('/api/logout', controller.user.logout);
 };

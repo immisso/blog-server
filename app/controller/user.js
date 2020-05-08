@@ -2,7 +2,7 @@
  * @Author: 柒叶
  * @Date: 2020-05-06 07:32:26
  * @Last Modified by: 柒叶
- * @Last Modified time: 2020-05-08 13:29:27
+ * @Last Modified time: 2020-05-08 20:32:07
  */
 
 'use strict';
@@ -27,10 +27,9 @@ class User extends Controller {
     const token = jwt.sign({ id: user.id, email: user.email }, SECRET, {
       expiresIn: EXPIRES,
     });
-    console.log('11111111111111111111111111111111');
-    console.log(token);
     ctx.cookies.set('_token', token, {
       encrypt: true, // 加密传输
+      maxAge: EXPIRES * 1000,
     });
     ctx.body = Success(200, 'Success');
   }
@@ -62,6 +61,12 @@ class User extends Controller {
     const user = await ctx.service.user.queryUserById(id);
     user.dataValues.exp = exp;
     ctx.body = Success(200, 'Success', user);
+  }
+
+  async logout() {
+    const { ctx } = this;
+    ctx.cookies.set('_token', null);
+    ctx.body = Success(200, 'Success');
   }
 }
 
