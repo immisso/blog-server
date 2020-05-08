@@ -2,7 +2,7 @@
  * @Author: 柒叶
  * @Date: 2020-05-04 15:04:35
  * @Last Modified by: 柒叶
- * @Last Modified time: 2020-05-07 17:59:25
+ * @Last Modified time: 2020-05-08 13:16:34
  */
 
 'use strict';
@@ -18,39 +18,64 @@ class User extends Service {
       password: generatePassWord(password),
     });
   }
-  async login(data) {
-    console.log('eeeeeeeeeeeeessssssssssssssss');
-    console.log(data);
-    return '';
-  }
   async findUser(data) {
     const { email } = data;
     return this.ctx.model.User.findOne({
       where: { email, status: 1 },
     });
   }
-  async viewPlusOne(id) {
-    return this.ctx.model.User.update({
-      total_view: literal('total_view + 1'),
-    }, {
-      where: { id },
+
+  async queryUserById(id) {
+    return this.ctx.model.User.findOne({
+      where: { id, status: 1 },
+      attributes: [
+        'id',
+        'username',
+        'email',
+        'nickname',
+        'avatar',
+        'website',
+        'github',
+        'github',
+        'gitee',
+        'weibo',
+        'profession',
+        'summary',
+        'account_type',
+      ],
     });
+  }
+  async viewPlusOne(id) {
+    return this.ctx.model.User.update(
+      {
+        total_view: literal('total_view + 1'),
+      },
+      {
+        where: { id },
+      }
+    );
   }
 
   async likePlusOne(id) {
-    return this.ctx.model.User.update({
-      total_like: literal('total_like + 1'),
-    }, {
-      where: { id },
-    });
+    return this.ctx.model.User.update(
+      {
+        total_like: literal('total_like + 1'),
+      },
+      {
+        where: { id },
+      }
+    );
   }
 
   async commentPlusOne(id) {
-    return this.ctx.model.User.update({
-      total_comment: literal('total_comment + 1'),
-    }, {
-      where: { id },
-    });
+    return this.ctx.model.User.update(
+      {
+        total_comment: literal('total_comment + 1'),
+      },
+      {
+        where: { id },
+      }
+    );
   }
 }
 

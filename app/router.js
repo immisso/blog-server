@@ -32,6 +32,8 @@ module.exports = app => {
   router.post('/api/admin/delete/comment', controller.admin.deleteComment);
   router.post('/api/admin/delete/article', controller.admin.deleteArticle);
 
+  router.get('/api/account', controller.user.account);
+
   router.post('/api/login', controller.user.login);
   router.post('/api/register', controller.user.register);
 };
