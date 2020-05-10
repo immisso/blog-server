@@ -2,7 +2,7 @@
  * @Author: 柒叶
  * @Date: 2020-05-06 07:32:26
  * @Last Modified by: 柒叶
- * @Last Modified time: 2020-05-08 20:32:07
+ * @Last Modified time: 2020-05-09 13:41:19
  */
 
 'use strict';
@@ -67,6 +67,25 @@ class User extends Controller {
     const { ctx } = this;
     ctx.cookies.set('_token', null);
     ctx.body = Success(200, 'Success');
+  }
+
+  async updateAccount() {
+    const { ctx } = this;
+    ctx.validate({
+      email: { type: 'string', allowEmpty: true, required: false },
+      nickname: { type: 'string', allowEmpty: true, required: false },
+      profession: { type: 'string', allowEmpty: true, required: false },
+      summary: { type: 'string', allowEmpty: true, required: false },
+      website: { type: 'string', allowEmpty: true, required: false },
+      github: { type: 'string', allowEmpty: true, required: false },
+      gitee: { type: 'string', allowEmpty: true, required: false },
+      weibo: { type: 'string', allowEmpty: true, required: false },
+    });
+    const { id } = ctx.locals;
+    await ctx.service.user.updateAccount(ctx.request.body, id);
+    const user = await ctx.service.user.queryUserById(id);
+
+    ctx.body = Success(200, 'Success', user);
   }
 }
 

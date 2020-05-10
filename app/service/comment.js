@@ -2,7 +2,7 @@
  * @Author: 柒叶
  * @Date: 2020-04-29 17:41:41
  * @Last Modified by: 柒叶
- * @Last Modified time: 2020-05-02 19:54:45
+ * @Last Modified time: 2020-05-10 20:24:45
  */
 
 'use strict';
@@ -37,7 +37,7 @@ class Comment extends Service {
           attributes: [
             'view',
             'title',
-            'like',
+            'favorite',
             'id',
             'comment',
           ],

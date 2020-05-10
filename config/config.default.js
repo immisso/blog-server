@@ -12,7 +12,7 @@ module.exports = appInfo => {
    * built-in config
    * @type {Egg.EggAppConfig}
    **/
-  const config = exports = {};
+  const config = (exports = {});
 
   // use for cookie sign key, should change to your own and keep security
   config.keys = appInfo.name + '_1586057841215_9419';
@@ -22,7 +22,16 @@ module.exports = appInfo => {
 
   config.auth = {
     enable: true,
-    ignore: [ '/api/categories', '/api/login', '/api/register' ],
+    ignore: [
+      '/api/categories',
+      '/api/login',
+      '/api/register',
+      '/api/articles',
+      '/api/hot',
+      '/api/detail',
+      '/api/comments',
+      '/api/tags',
+    ],
   };
 
   config.sequelize = {

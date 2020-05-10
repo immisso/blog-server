@@ -2,7 +2,7 @@
  * @Author: 柒叶
  * @Date: 2020-04-07 09:16:51
  * @Last Modified by: 柒叶
- * @Last Modified time: 2020-04-18 12:26:13
+ * @Last Modified time: 2020-05-10 18:01:39
  */
 
 'use strict';
@@ -89,6 +89,7 @@ module.exports = app => {
     app.model.User.hasMany(app.model.Article);
     app.model.User.hasMany(app.model.Comment);
     app.model.User.hasMany(app.model.Draft);
+    // app.model.User.hasMany(app.model.Praise);
   };
   return User;
 };

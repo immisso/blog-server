@@ -2,7 +2,7 @@
  * @Author: 柒叶
  * @Date: 2020-04-10 07:04:23
  * @Last Modified by: 柒叶
- * @Last Modified time: 2020-05-04 14:52:47
+ * @Last Modified time: 2020-05-10 20:24:13
  */
 
 'use strict';
@@ -20,7 +20,7 @@ class Article extends Service {
       offset: (parseInt(page) - 1) * parseInt(pageSize),
       limit: parseInt(pageSize),
       order: [[ 'createdAt', 'DESC' ]],
-      attributes: [ 'view', 'title', 'like', 'id', 'comment', 'cover', 'createdAt' ],
+      attributes: [ 'view', 'title', 'favorite', 'id', 'comment', 'cover', 'createdAt' ],
       include: [
         {
           model: this.ctx.model.Tag,
@@ -43,7 +43,7 @@ class Article extends Service {
     return this.ctx.model.Article.findAll({
       order: [[ 'view', 'DESC' ]],
       limit: 10,
-      attributes: [ 'view', 'title', 'like', 'id', 'comment' ],
+      attributes: [ 'view', 'title', 'favorite', 'id', 'comment' ],
     });
   }
   async detail({ id }) {
@@ -121,9 +121,9 @@ class Article extends Service {
     });
   }
 
-  async likePlusOne(id) {
+  async favoritePlusOne(id) {
     return this.ctx.model.Article.update({
-      like: literal('like + 1'),
+      favorite: literal('favorite + 1'),
     }, {
       where: { id },
     });
@@ -132,6 +132,14 @@ class Article extends Service {
   async commentPlusOne(id) {
     return this.ctx.model.Article.update({
       comment: literal('comment + 1'),
+    }, {
+      where: { id },
+    });
+  }
+
+  async favoriteReduceOne(id) {
+    return this.ctx.model.Article.update({
+      favorite: literal('favorite - 1'),
     }, {
       where: { id },
     });

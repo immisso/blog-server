@@ -2,7 +2,7 @@
  * @Author: 柒叶
  * @Date: 2020-04-10 07:04:07
  * @Last Modified by: 柒叶
- * @Last Modified time: 2020-05-04 15:56:55
+ * @Last Modified time: 2020-05-10 20:32:15
  */
 'use strict';
 
@@ -63,6 +63,35 @@ class ArticleController extends Controller {
   async tags() {
     const { ctx } = this;
     ctx.body = Success(200, 'Success', await ctx.service.tag.tags());
+  }
+
+  async updateFavorite() {
+    const { ctx } = this;
+    ctx.validate({
+      id: 'id',
+      author: 'int',
+    });
+    console.log('666666666666666666666');
+    const { id: like_id } = ctx.locals;
+    const { id: article_id, author } = ctx.request.body;
+    const favortie = await ctx.service.favortie.findOne(like_id, article_id);
+    if (!favortie) {
+      await ctx.service.favortie.create({ like_id, article_id });
+      console.log('eeeeeeeeeeeeeeeeeeeeeee');
+      console.log(article_id);
+      const result = await ctx.service.article.favoritePlusOne(article_id);
+      console.log(result);
+      await ctx.service.user.likePlusOne(author);
+    }
+    if (favortie.status === 2) {
+      await ctx.service.favortie.update(favortie.id, 1);
+      await ctx.service.article.likePlusOne(article_id);
+      await ctx.service.user.likePlusOne(author);
+    }
+    await ctx.service.favortie.update(favortie.id, 1);
+    await ctx.service.article.favoriteReduceOne(article_id);
+    await ctx.service.user.likeReduceOne(author);
+    ctx.body = Success(200, 'Success');
   }
 }
 

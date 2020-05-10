@@ -9,13 +9,17 @@ module.exports = app => {
   router.get('/api/categories', controller.home.categories);
   router.get('/api/articles', controller.home.articles);
   router.get('/api/hot', controller.home.hot);
+
   router.get('/api/detail', controller.article.detail);
   router.get('/api/comments', controller.article.comments);
   router.get('/api/tags', controller.article.tags);
+
+  router.post('/api/toursit/comment', controller.article.toursitComment);
+  router.post('/api/update/favorite', controller.article.updateFavorite);
+
   router.get('/api/draft', controller.write.draft);
   router.get('/api/drafts', controller.write.drafts);
 
-  router.post('/api/toursit/comment', controller.article.toursitComment);
   router.post('/api/create/draft', controller.write.createDraft);
   router.post('/api/update/draft', controller.write.updateDraft);
   router.post('/api/create/publish', controller.write.createPublish);
@@ -37,4 +41,6 @@ module.exports = app => {
   router.post('/api/login', controller.user.login);
   router.post('/api/register', controller.user.register);
   router.post('/api/logout', controller.user.logout);
+  router.post('/api/update/account', controller.user.updateAccount);
+
 };
