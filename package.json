@@ -11,6 +11,7 @@
     "egg-scripts": "^2.11.0",
     "egg-sequelize": "^5.2.1",
     "egg-validate": "^2.0.2",
+    "jsonwebtoken": "^8.5.1",
     "mysql2": "^2.1.0",
     "sequelize-cli": "^5.5.1"
   },
@@ -38,7 +39,8 @@
     "ci": "npm run lint && npm run cov",
     "autod": "autod",
     "migrate": "npx sequelize db:migrate",
-    "seed": "npx sequelize db:seed:all"
+    "seed": "npx sequelize db:seed:all",
+    "generate": "npx sequelize migration:generate --name"
   },
   "ci": {
     "version": "10"

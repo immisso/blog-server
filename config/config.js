@@ -2,7 +2,7 @@
  * @Author: 柒叶
  * @Date: 2020-04-05 16:45:46
  * @Last Modified by: 柒叶
- * @Last Modified time: 2020-04-12 18:42:06
+ * @Last Modified time: 2020-05-07 20:26:23
  */
 
 'use strict';
@@ -17,4 +17,5 @@ module.exports = {
     host: HOST,
     dialect: 'mysql',
   },
+
 };

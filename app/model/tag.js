@@ -2,7 +2,7 @@
  * @Author: 柒叶
  * @Date: 2020-04-07 10:39:17
  * @Last Modified by: 柒叶
- * @Last Modified time: 2020-04-07 12:07:37
+ * @Last Modified time: 2020-05-01 17:57:02
  */
 
 'use strict';
@@ -12,6 +12,7 @@ module.exports = app => {
     id: {
       primaryKey: true,
       type: INTEGER,
+      autoIncrement: true,
     },
     name: {
       type: STRING(50),
