@@ -2,7 +2,7 @@
  * @Author: 柒叶
  * @Date: 2020-04-18 18:24:21
  * @Last Modified by: 柒叶
- * @Last Modified time: 2020-04-27 13:48:36
+ * @Last Modified time: 2020-05-11 17:26:30
  */
 
 'use strict';
@@ -20,13 +20,13 @@ class WriteController extends Controller {
       },
       ctx.query
     );
-    const draft = await ctx.service.write.draft(ctx.query);
+    const draft = await ctx.service.draft.draft(ctx.query);
     ctx.body = Success(200, 'Success', draft);
   }
 
   async drafts() {
     const { ctx } = this;
-    ctx.body = Success(200, 'Success', await ctx.service.write.drafts());
+    ctx.body = Success(200, 'Success', await ctx.service.draft.drafts());
   }
 
   async createDraft() {
@@ -37,7 +37,7 @@ class WriteController extends Controller {
         markdown: { type: 'string' },
       }
     );
-    const draft = await ctx.service.write.createDraft(ctx.request.body);
+    const draft = await ctx.service.draft.createDraft(ctx.request.body);
     ctx.body = Success(200, 'Success', draft);
   }
 
@@ -48,7 +48,7 @@ class WriteController extends Controller {
       title: { type: 'string' },
       markdown: { type: 'string' },
     });
-    await ctx.service.write.updateDraft(ctx.request.body);
+    await ctx.service.draft.updateDraft(ctx.request.body);
     ctx.body = Success(200, 'Success');
   }
 
@@ -62,9 +62,7 @@ class WriteController extends Controller {
       selectedCategory: { type: 'int' },
       coverImageUrl: { type: 'string' },
     });
-    console.log('dddddddddddddddddddddddddddddddd');
-    console.log(ctx.request.body);
-    await ctx.service.write.createPublish(ctx.request.body);
+    await ctx.service.article.createPublish(ctx.request.body);
     ctx.body = Success(200, 'Success');
   }
 }

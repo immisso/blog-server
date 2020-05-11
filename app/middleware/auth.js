@@ -2,7 +2,7 @@
  * @Author: 柒叶
  * @Date: 2020-05-07 13:44:05
  * @Last Modified by: 柒叶
- * @Last Modified time: 2020-05-08 13:15:26
+ * @Last Modified time: 2020-05-11 12:59:51
  */
 
 'use strict';
@@ -38,7 +38,9 @@ module.exports = () => {
       ctx.locals.email = email;
       await next();
     } catch (e) {
-      ctx.body = { code: 401, msg: '无效的Token' };
+      console.log('dddddddddddddddddddddddddddddddd');
+      console.log(e);
+      ctx.body = { code: 500, msg: '无效的Token' };
     }
   };
 };

@@ -2,7 +2,7 @@
  * @Author: 柒叶
  * @Date: 2020-04-10 07:04:23
  * @Last Modified by: 柒叶
- * @Last Modified time: 2020-05-10 20:24:13
+ * @Last Modified time: 2020-05-11 17:27:25
  */
 
 'use strict';
@@ -20,7 +20,15 @@ class Article extends Service {
       offset: (parseInt(page) - 1) * parseInt(pageSize),
       limit: parseInt(pageSize),
       order: [[ 'createdAt', 'DESC' ]],
-      attributes: [ 'view', 'title', 'favorite', 'id', 'comment', 'cover', 'createdAt' ],
+      attributes: [
+        'view',
+        'title',
+        'favorite',
+        'id',
+        'comment',
+        'cover',
+        'createdAt',
+      ],
       include: [
         {
           model: this.ctx.model.Tag,
@@ -39,6 +47,12 @@ class Article extends Service {
     });
     return { count, articles: rows };
   }
+
+  async update(params, id) {
+    return this.ctx.model.Article.update(params, { where: { id } });
+  }
+
+
   async hots() {
     return this.ctx.model.Article.findAll({
       order: [[ 'view', 'DESC' ]],
@@ -46,6 +60,7 @@ class Article extends Service {
       attributes: [ 'view', 'title', 'favorite', 'id', 'comment' ],
     });
   }
+
   async detail({ id }) {
     return this.ctx.model.Article.findOne({
       where: { id },
@@ -81,70 +96,89 @@ class Article extends Service {
     });
   }
 
-  // async comments({ id }) {
-  //   return this.ctx.model.Comment.findAll({
-  //     where: { article_id: id },
-  //     include: [
-  //       {
-  //         model: this.ctx.model.User,
-  //         as: 'user',
-  //         attributes: [
-  //           'id',
-  //           'username',
-  //           'email',
-  //           'nickname',
-  //           'total_view',
-  //           'total_like',
-  //           'total_comment',
-  //           'profession',
-  //           'avatar',
-  //         ],
-  //       },
-  //     ],
-  //   });
-  // }
-
-
   async deleteArticle(id) {
-    return this.ctx.model.Article.update({
-      status: 2,
-    }, {
-      where: { id },
-    });
+    return this.ctx.model.Article.update(
+      {
+        status: 2,
+      },
+      {
+        where: { id },
+      }
+    );
   }
 
   async viewPlusOne(id) {
-    return this.ctx.model.Article.update({
-      view: literal('view + 1'),
-    }, {
-      where: { id },
-    });
+    return this.ctx.model.Article.update(
+      {
+        view: literal('view + 1'),
+      },
+      {
+        where: { id },
+      }
+    );
   }
 
   async favoritePlusOne(id) {
-    return this.ctx.model.Article.update({
-      favorite: literal('favorite + 1'),
-    }, {
-      where: { id },
-    });
+    return this.ctx.model.Article.update(
+      {
+        favorite: literal('favorite + 1'),
+      },
+      {
+        where: { id },
+      }
+    );
   }
 
   async commentPlusOne(id) {
-    return this.ctx.model.Article.update({
-      comment: literal('comment + 1'),
-    }, {
-      where: { id },
-    });
+    return this.ctx.model.Article.update(
+      {
+        comment: literal('comment + 1'),
+      },
+      {
+        where: { id },
+      }
+    );
   }
 
   async favoriteReduceOne(id) {
-    return this.ctx.model.Article.update({
-      favorite: literal('favorite - 1'),
-    }, {
-      where: { id },
+    return this.ctx.model.Article.update(
+      {
+        favorite: literal('favorite - 1'),
+      },
+      {
+        where: { id },
+      }
+    );
+  }
+
+  async createPublish(params) {
+    const { markdown, title, html, selectedTag, selectedCategory, coverImageUrl } = params;
+    return this.ctx.model.Article.create({
+      content_mark: markdown,
+      title,
+      content_html: html,
+      tag_id: selectedTag,
+      category_id: selectedCategory,
+      cover: coverImageUrl,
+      user_id: 1,
     });
   }
 
+  async updatePublish(params) {
+    const { id, markdown, title, html, selectedTag, selectedCategory } = params;
+    return this.ctx.model.Article.update(
+      {
+        content_mark: markdown,
+        title,
+        content_html: html,
+        tag_id: selectedTag,
+        category_id: selectedCategory,
+      },
+      {
+        where: { id },
+      }
+    );
+  }
 }
 
 module.exports = Article;

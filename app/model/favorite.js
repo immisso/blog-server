@@ -2,7 +2,7 @@
  * @Author: 柒叶
  * @Date: 2020-05-10 12:05:50
  * @Last Modified by: 柒叶
- * @Last Modified time: 2020-05-10 20:29:24
+ * @Last Modified time: 2020-05-11 09:29:10
  */
 
 'use strict';
@@ -18,7 +18,7 @@ module.exports = app => {
       type: INTEGER,
       allowNull: false,
     },
-    like_id: {
+    favorite_id: {
       type: INTEGER,
       allowNull: false,
     },

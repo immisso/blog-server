@@ -2,7 +2,7 @@
  * @Author: 柒叶
  * @Date: 2020-05-04 15:04:35
  * @Last Modified by: 柒叶
- * @Last Modified time: 2020-05-10 16:42:10
+ * @Last Modified time: 2020-05-11 17:06:48
  */
 
 'use strict';
@@ -61,7 +61,7 @@ class User extends Service {
     );
   }
 
-  async likePlusOne(id) {
+  async favoritePlusOne(id) {
     return this.ctx.model.User.update(
       {
         total_like: literal('total_like + 1'),
@@ -83,7 +83,7 @@ class User extends Service {
     );
   }
 
-  async likeReduceOne(id) {
+  async favoriteReduceOne(id) {
     return this.ctx.model.User.update(
       {
         total_like: literal('total_like - 1'),

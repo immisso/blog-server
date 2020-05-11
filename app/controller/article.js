@@ -2,7 +2,7 @@
  * @Author: 柒叶
  * @Date: 2020-04-10 07:04:07
  * @Last Modified by: 柒叶
- * @Last Modified time: 2020-05-10 20:32:15
+ * @Last Modified time: 2020-05-11 17:08:22
  */
 'use strict';
 
@@ -71,27 +71,40 @@ class ArticleController extends Controller {
       id: 'id',
       author: 'int',
     });
-    console.log('666666666666666666666');
-    const { id: like_id } = ctx.locals;
+    const { id: favorite_id } = ctx.locals;
     const { id: article_id, author } = ctx.request.body;
-    const favortie = await ctx.service.favortie.findOne(like_id, article_id);
+    const favortie = await ctx.service.favortie.findOne(favorite_id, article_id);
     if (!favortie) {
-      await ctx.service.favortie.create({ like_id, article_id });
-      console.log('eeeeeeeeeeeeeeeeeeeeeee');
-      console.log(article_id);
-      const result = await ctx.service.article.favoritePlusOne(article_id);
-      console.log(result);
-      await ctx.service.user.likePlusOne(author);
+      await Promise.all([
+        ctx.service.favortie.create({ favorite_id, article_id }),
+        ctx.service.article.favoritePlusOne(article_id),
+        ctx.service.user.favoritePlusOne(author),
+      ]);
+    } else {
+      if (favortie.status === 2) {
+        await Promise.all([
+          ctx.service.favortie.update(favortie.id, 1),
+          ctx.service.article.favoritePlusOne(article_id),
+          ctx.service.user.favoritePlusOne(author),
+        ]);
+      }
+      if (favortie.status === 1) {
+        await Promise.all([
+          ctx.service.favortie.update(favortie.id, 2),
+          ctx.service.article.favoriteReduceOne(article_id),
+          ctx.service.user.favoriteReduceOne(author),
+        ]);
+      }
     }
-    if (favortie.status === 2) {
-      await ctx.service.favortie.update(favortie.id, 1);
-      await ctx.service.article.likePlusOne(article_id);
-      await ctx.service.user.likePlusOne(author);
-    }
-    await ctx.service.favortie.update(favortie.id, 1);
-    await ctx.service.article.favoriteReduceOne(article_id);
-    await ctx.service.user.likeReduceOne(author);
     ctx.body = Success(200, 'Success');
+  }
+  async isFavorite() {
+    const { ctx } = this;
+    ctx.validate({ id: 'id' }, ctx.query);
+    const { id: like_id } = ctx.locals;
+    const { id: article_id } = ctx.query;
+    const favorite = await ctx.service.favortie.findOne(like_id, article_id, 1);
+    ctx.body = Success(200, 'Success', favorite !== null);
   }
 }
 
