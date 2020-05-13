@@ -2,7 +2,7 @@
  * @Author: 柒叶
  * @Date: 2020-04-29 17:30:18
  * @Last Modified by: 柒叶
- * @Last Modified time: 2020-05-02 19:47:04
+ * @Last Modified time: 2020-05-12 16:01:02
  */
 
 'use strict';
@@ -24,6 +24,7 @@ class AdminController extends Controller {
     const articles = await ctx.service.article.articles(ctx.query);
     ctx.body = Success(200, 'Success', articles);
   }
+
   async comments() {
     const { ctx } = this;
     const comments = await ctx.service.comment.comments();

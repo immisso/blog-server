@@ -2,13 +2,12 @@
  * @Author: 柒叶
  * @Date: 2020-04-10 07:04:23
  * @Last Modified by: 柒叶
- * @Last Modified time: 2020-05-11 17:27:25
+ * @Last Modified time: 2020-05-12 15:03:23
  */
 
 'use strict';
 const Service = require('egg').Service;
 const { literal } = require('sequelize');
-// const { generatePassWord } = require('../lib/tool_helper');
 
 class Article extends Service {
   async articles({ page, pageSize, category, tag }) {
@@ -47,11 +46,6 @@ class Article extends Service {
     });
     return { count, articles: rows };
   }
-
-  async update(params, id) {
-    return this.ctx.model.Article.update(params, { where: { id } });
-  }
-
 
   async hots() {
     return this.ctx.model.Article.findAll({
@@ -152,7 +146,14 @@ class Article extends Service {
   }
 
   async createPublish(params) {
-    const { markdown, title, html, selectedTag, selectedCategory, coverImageUrl } = params;
+    const {
+      markdown,
+      title,
+      html,
+      selectedTag,
+      selectedCategory,
+      coverImageUrl,
+    } = params;
     return this.ctx.model.Article.create({
       content_mark: markdown,
       title,

@@ -2,7 +2,7 @@
  * @Author: 柒叶
  * @Date: 2020-04-10 07:04:07
  * @Last Modified by: 柒叶
- * @Last Modified time: 2020-05-11 17:08:22
+ * @Last Modified time: 2020-05-13 17:06:31
  */
 'use strict';
 
@@ -52,12 +52,31 @@ class ArticleController extends Controller {
     );
 
     const { author, article_id } = ctx.request.body;
-    const [ createComment ] = await Promise.all([
+    const [ comment ] = await Promise.all([
       ctx.service.comment.createToursitComment(ctx.request.body),
       ctx.service.user.commentPlusOne(author),
       ctx.service.article.commentPlusOne(article_id),
     ]);
-    ctx.body = Success(200, 'Success', createComment);
+    ctx.body = Success(200, 'Success', comment);
+  }
+
+  async createComment() {
+    const { ctx } = this;
+    ctx.validate(
+      {
+        content: { type: 'string' },
+        article_id: { type: 'string' },
+        author: { type: 'int' },
+      }
+    );
+    const { id: uid } = ctx.locals;
+    const { author, article_id } = ctx.request.body;
+    const [ comment ] = await Promise.all([
+      ctx.service.comment.createComment(ctx.request.body, uid),
+      ctx.service.user.commentPlusOne(author),
+      ctx.service.article.commentPlusOne(article_id),
+    ]);
+    ctx.body = Success(200, 'Success', comment);
   }
 
   async tags() {

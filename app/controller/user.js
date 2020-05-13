@@ -2,7 +2,7 @@
  * @Author: 柒叶
  * @Date: 2020-05-06 07:32:26
  * @Last Modified by: 柒叶
- * @Last Modified time: 2020-05-09 13:41:19
+ * @Last Modified time: 2020-05-11 17:58:21
  */
 
 'use strict';
@@ -24,9 +24,7 @@ class User extends Controller {
     const user = await ctx.service.user.findUser(ctx.request.body);
     if (!user) ctx.throw(500, '该用户不存在或者已经被删除');
     if (generatePassWord(password) !== user.password) { ctx.throw(500, '密码不正确，请重新输入'); }
-    const token = jwt.sign({ id: user.id, email: user.email }, SECRET, {
-      expiresIn: EXPIRES,
-    });
+    const token = jwt.sign({ id: user.id, email: user.email }, SECRET, { expiresIn: EXPIRES });
     ctx.cookies.set('_token', token, {
       encrypt: true, // 加密传输
       maxAge: EXPIRES * 1000,
@@ -52,11 +50,14 @@ class User extends Controller {
 
   async account() {
     const { ctx } = this;
-    ctx.validate({
-      id: 'int',
-      email: 'string',
-      exp: 'int',
-    }, ctx.locals);
+    ctx.validate(
+      {
+        id: 'int',
+        email: 'string',
+        exp: 'int',
+      },
+      ctx.locals
+    );
     const { id, exp } = ctx.locals;
     const user = await ctx.service.user.queryUserById(id);
     user.dataValues.exp = exp;

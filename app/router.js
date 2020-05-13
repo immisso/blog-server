@@ -16,6 +16,7 @@ module.exports = app => {
   router.get('/api/isFavorite', controller.article.isFavorite);
 
   router.post('/api/toursit/comment', controller.article.toursitComment);
+  router.post('/api/create/comment', controller.article.createComment);
   router.post('/api/update/favorite', controller.article.updateFavorite);
 
   router.get('/api/draft', controller.write.draft);
