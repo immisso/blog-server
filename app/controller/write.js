@@ -2,7 +2,7 @@
  * @Author: 柒叶
  * @Date: 2020-04-18 18:24:21
  * @Last Modified by: 柒叶
- * @Last Modified time: 2020-05-11 17:26:30
+ * @Last Modified time: 2020-05-14 20:04:27
  */
 
 'use strict';
@@ -60,7 +60,7 @@ class WriteController extends Controller {
       html: { type: 'string' },
       selectedTag: { type: 'int' },
       selectedCategory: { type: 'int' },
-      coverImageUrl: { type: 'string' },
+      coverImageUrl: { type: 'string', required: false },
     });
     await ctx.service.article.createPublish(ctx.request.body);
     ctx.body = Success(200, 'Success');

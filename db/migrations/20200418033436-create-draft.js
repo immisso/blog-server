@@ -13,7 +13,7 @@ module.exports = {
         defaultValue: null,
         comment: '文章标题',
       },
-      user_id: {
+      uid: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {

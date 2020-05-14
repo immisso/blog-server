@@ -4,8 +4,12 @@ module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert('categories', [
       {
-        name: '随笔',
-        en_name: 'essay',
+        name: '文学',
+        en_name: 'literature',
+      },
+      {
+        name: '艺术',
+        en_name: 'art',
       },
       {
         name: '后端',

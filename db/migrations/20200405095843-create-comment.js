@@ -8,7 +8,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         autoIncrement: true,
       },
-      user_id: {
+      uid: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
