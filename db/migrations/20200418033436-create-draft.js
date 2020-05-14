@@ -36,6 +36,11 @@ module.exports = {
         defaultValue: 1,
         comment: '1->正常,2->删除',
       },
+      is_publish: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: 0,
+        comment: '是否已发布',
+      },
       category_id: {
         type: Sequelize.INTEGER,
         defaultValue: null,

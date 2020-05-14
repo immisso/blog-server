@@ -2,7 +2,7 @@
  * @Author: 柒叶
  * @Date: 2020-04-18 12:22:27
  * @Last Modified by: 柒叶
- * @Last Modified time: 2020-04-18 18:42:02
+ * @Last Modified time: 2020-05-15 06:18:32
  */
 
 'use strict';
@@ -19,7 +19,7 @@ module.exports = app => {
       defaultValue: null,
       comment: '文章标题',
     },
-    user_id: {
+    uid: {
       type: INTEGER,
       allowNull: false,
     },
