@@ -2,7 +2,7 @@
  * @Author: 柒叶
  * @Date: 2020-04-07 09:16:51
  * @Last Modified by: 柒叶
- * @Last Modified time: 2020-05-15 06:19:10
+ * @Last Modified time: 2020-05-15 12:14:27
  */
 
 'use strict';
@@ -86,8 +86,8 @@ module.exports = app => {
     },
   });
   User.associate = () => {
-    app.model.User.hasMany(app.model.Article);
-    app.model.User.hasMany(app.model.Comment);
+    app.model.User.hasMany(app.model.Article, { foreignKey: 'uid' });
+    app.model.User.hasMany(app.model.Comment, { foreignKey: 'uid' });
     app.model.User.hasMany(app.model.Draft);
   };
   return User;

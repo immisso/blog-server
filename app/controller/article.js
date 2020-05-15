@@ -2,7 +2,7 @@
  * @Author: 柒叶
  * @Date: 2020-04-10 07:04:07
  * @Last Modified by: 柒叶
- * @Last Modified time: 2020-05-13 17:06:31
+ * @Last Modified time: 2020-05-15 10:38:10
  */
 'use strict';
 
@@ -69,7 +69,7 @@ class ArticleController extends Controller {
         author: { type: 'int' },
       }
     );
-    const { id: uid } = ctx.locals;
+    const { uid } = ctx.locals;
     const { author, article_id } = ctx.request.body;
     const [ comment ] = await Promise.all([
       ctx.service.comment.createComment(ctx.request.body, uid),
@@ -90,7 +90,7 @@ class ArticleController extends Controller {
       id: 'id',
       author: 'int',
     });
-    const { id: favorite_id } = ctx.locals;
+    const { uid: favorite_id } = ctx.locals;
     const { id: article_id, author } = ctx.request.body;
     const favortie = await ctx.service.favortie.findOne(favorite_id, article_id);
     if (!favortie) {
@@ -120,9 +120,9 @@ class ArticleController extends Controller {
   async isFavorite() {
     const { ctx } = this;
     ctx.validate({ id: 'id' }, ctx.query);
-    const { id: like_id } = ctx.locals;
+    const { uid: favorite_id } = ctx.locals;
     const { id: article_id } = ctx.query;
-    const favorite = await ctx.service.favortie.findOne(like_id, article_id, 1);
+    const favorite = await ctx.service.favortie.findOne(favorite_id, article_id, 1);
     ctx.body = Success(200, 'Success', favorite !== null);
   }
 }

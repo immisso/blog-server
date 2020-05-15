@@ -2,7 +2,7 @@
  * @Author: 柒叶
  * @Date: 2020-04-10 07:04:23
  * @Last Modified by: 柒叶
- * @Last Modified time: 2020-05-12 15:03:23
+ * @Last Modified time: 2020-05-15 11:26:31
  */
 
 'use strict';
@@ -145,7 +145,7 @@ class Article extends Service {
     );
   }
 
-  async createPublish(params) {
+  async createPublish(params, uid) {
     const {
       markdown,
       title,
@@ -155,13 +155,13 @@ class Article extends Service {
       coverImageUrl,
     } = params;
     return this.ctx.model.Article.create({
-      content_mark: markdown,
+      markdown,
       title,
-      content_html: html,
+      html,
       tag_id: selectedTag,
       category_id: selectedCategory,
       cover: coverImageUrl,
-      user_id: 1,
+      uid,
     });
   }
 
@@ -169,9 +169,9 @@ class Article extends Service {
     const { id, markdown, title, html, selectedTag, selectedCategory } = params;
     return this.ctx.model.Article.update(
       {
-        content_mark: markdown,
+        markdown,
         title,
-        content_html: html,
+        html,
         tag_id: selectedTag,
         category_id: selectedCategory,
       },

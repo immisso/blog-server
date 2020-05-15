@@ -2,7 +2,7 @@
  * @Author: 柒叶
  * @Date: 2020-04-29 17:41:41
  * @Last Modified by: 柒叶
- * @Last Modified time: 2020-05-12 15:04:20
+ * @Last Modified time: 2020-05-15 10:42:18
  */
 
 'use strict';
@@ -67,7 +67,7 @@ class Comment extends Service {
     }
     const result = await this.ctx.model.Comment.create({
       ...params,
-      user_id: user.id,
+      uid: user.id,
     });
     const comment = await this.ctx.model.Comment.findOne({
       where: { id: result.id },
@@ -95,7 +95,7 @@ class Comment extends Service {
   async createComment(params, uid) {
     const result = await this.ctx.model.Comment.create({
       ...params,
-      user_id: uid,
+      uid,
     });
 
     const comment = await this.ctx.model.Comment.findOne({

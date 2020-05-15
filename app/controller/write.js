@@ -2,7 +2,7 @@
  * @Author: 柒叶
  * @Date: 2020-04-18 18:24:21
  * @Last Modified by: 柒叶
- * @Last Modified time: 2020-05-14 20:04:27
+ * @Last Modified time: 2020-05-15 10:45:04
  */
 
 'use strict';
@@ -26,7 +26,8 @@ class WriteController extends Controller {
 
   async drafts() {
     const { ctx } = this;
-    ctx.body = Success(200, 'Success', await ctx.service.draft.drafts());
+    const { uid } = ctx.locals;
+    ctx.body = Success(200, 'Success', await ctx.service.draft.drafts(uid));
   }
 
   async createDraft() {
@@ -37,7 +38,8 @@ class WriteController extends Controller {
         markdown: { type: 'string' },
       }
     );
-    const draft = await ctx.service.draft.createDraft(ctx.request.body);
+    const { uid } = ctx.locals;
+    const draft = await ctx.service.draft.createDraft(ctx.request.body, uid);
     ctx.body = Success(200, 'Success', draft);
   }
 
@@ -62,7 +64,8 @@ class WriteController extends Controller {
       selectedCategory: { type: 'int' },
       coverImageUrl: { type: 'string', required: false },
     });
-    await ctx.service.article.createPublish(ctx.request.body);
+    const { uid } = ctx.locals;
+    await ctx.service.article.createPublish(ctx.request.body, uid);
     ctx.body = Success(200, 'Success');
   }
 }
