@@ -2,7 +2,7 @@
  * @Author: 柒叶
  * @Date: 2020-04-18 12:22:27
  * @Last Modified by: 柒叶
- * @Last Modified time: 2020-05-15 06:18:32
+ * @Last Modified time: 2020-05-15 21:44:57
  */
 
 'use strict';
@@ -48,7 +48,7 @@ module.exports = app => {
     },
   });
   Draft.associate = () => {
-    app.model.Draft.belongsTo(app.model.User, { as: 'user' });
+    app.model.Draft.belongsTo(app.model.User, { as: 'user', foreignKey: 'uid' });
   };
   return Draft;
 };

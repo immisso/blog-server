@@ -58,7 +58,8 @@ module.exports = appInfo => {
     // myAppName: 'egg',
     onerror: {
       all(err, ctx) {
-        ctx.body = { status: err.status, msg: err.message };
+        ctx.status = 200;
+        ctx.body = { status: err.status, message: err.message };
       },
     },
   };
