@@ -2,7 +2,7 @@
  * @Author: 柒叶
  * @Date: 2020-04-29 17:30:18
  * @Last Modified by: 柒叶
- * @Last Modified time: 2020-05-12 16:01:02
+ * @Last Modified time: 2020-05-17 19:55:33
  */
 
 'use strict';
@@ -13,12 +13,11 @@ const { Success } = require('../lib/response_status');
 class AdminController extends Controller {
   async articles() {
     const { ctx } = this;
-    ctx.validate(
-      {
-        page: { type: 'string' },
-        pageSize: { type: 'string' },
-      },
-      ctx.query
+    ctx.validate({
+      page: { type: 'string' },
+      pageSize: { type: 'string' },
+    },
+    ctx.query
     );
 
     const articles = await ctx.service.article.articles(ctx.query);

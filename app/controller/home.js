@@ -2,7 +2,7 @@
  * @Author: 柒叶
  * @Date: 2020-04-06 07:32:07
  * @Last Modified by: 柒叶
- * @Last Modified time: 2020-05-08 06:10:07
+ * @Last Modified time: 2020-05-17 19:57:13
  */
 
 'use strict';
@@ -17,15 +17,12 @@ class HomeController extends Controller {
   }
   async articles() {
     const { ctx } = this;
-    ctx.validate(
-      {
-        page: { type: 'string' },
-        pageSize: { type: 'string' },
-        category: { type: 'string', allowEmpty: true, required: false },
-        tag: { type: 'string', allowEmpty: true, required: false },
-      },
-      ctx.query
-    );
+    ctx.validate({
+      page: { type: 'string' },
+      pageSize: { type: 'string' },
+      category: { type: 'string', allowEmpty: true, required: false },
+      tag: { type: 'string', allowEmpty: true, required: false },
+    }, ctx.query);
     const articles = await ctx.service.article.articles(ctx.query);
     ctx.body = Success(200, 'Success', articles);
   }

@@ -2,7 +2,7 @@
  * @Author: 柒叶
  * @Date: 2020-05-11 17:23:12
  * @Last Modified by: 柒叶
- * @Last Modified time: 2020-05-17 12:30:57
+ * @Last Modified time: 2020-05-17 20:01:20
  */
 
 'use strict';
@@ -29,6 +29,15 @@ class Draft extends Service {
     const { title, markdown, id } = params;
     return this.ctx.model.Draft.update(
       { title, markdown },
+      {
+        where: { id },
+      }
+    );
+  }
+
+  async updatePublishStatus(id) {
+    return this.ctx.model.Draft.update(
+      { is_publish: 1 },
       {
         where: { id },
       }

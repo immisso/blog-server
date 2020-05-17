@@ -2,7 +2,7 @@
  * @Author: 柒叶
  * @Date: 2020-04-18 18:24:21
  * @Last Modified by: 柒叶
- * @Last Modified time: 2020-05-15 10:45:04
+ * @Last Modified time: 2020-05-17 19:57:45
  */
 
 'use strict';
@@ -14,12 +14,9 @@ class WriteController extends Controller {
 
   async draft() {
     const { ctx } = this;
-    ctx.validate(
-      {
-        id: { type: 'id' },
-      },
-      ctx.query
-    );
+    ctx.validate({
+      id: { type: 'id' },
+    }, ctx.query);
     const draft = await ctx.service.draft.draft(ctx.query);
     ctx.body = Success(200, 'Success', draft);
   }
@@ -32,12 +29,10 @@ class WriteController extends Controller {
 
   async createDraft() {
     const { ctx } = this;
-    ctx.validate(
-      {
-        title: { type: 'string' },
-        markdown: { type: 'string' },
-      }
-    );
+    ctx.validate({
+      title: { type: 'string' },
+      markdown: { type: 'string' },
+    });
     const { uid } = ctx.locals;
     const draft = await ctx.service.draft.createDraft(ctx.request.body, uid);
     ctx.body = Success(200, 'Success', draft);

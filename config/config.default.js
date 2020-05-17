@@ -31,6 +31,7 @@ module.exports = appInfo => {
       '/api/detail',
       '/api/comments',
       '/api/tags',
+      '/api/toursit/comment',
     ],
   };
 

@@ -2,7 +2,7 @@
  * @Author: 柒叶
  * @Date: 2020-04-10 07:04:07
  * @Last Modified by: 柒叶
- * @Last Modified time: 2020-05-15 10:38:10
+ * @Last Modified time: 2020-05-17 19:56:43
  */
 'use strict';
 
@@ -12,12 +12,9 @@ const { Success } = require('../lib/response_status');
 class ArticleController extends Controller {
   async detail() {
     const { ctx } = this;
-    ctx.validate(
-      {
-        id: { type: 'id' },
-      },
-      ctx.query
-    );
+    ctx.validate({
+      id: { type: 'id' },
+    }, ctx.query);
     const [ , detail ] = await Promise.all([
       ctx.service.article.viewPlusOne(ctx.query.id),
       ctx.service.article.detail(ctx.query),
@@ -28,28 +25,23 @@ class ArticleController extends Controller {
 
   async comments() {
     const { ctx } = this;
-    ctx.validate(
-      {
-        id: { type: 'id' },
-      },
-      ctx.query
-    );
+    ctx.validate({
+      id: { type: 'id' },
+    }, ctx.query);
     const comments = await ctx.service.comment.comments(ctx.query);
     ctx.body = Success(200, 'Success', comments);
   }
 
   async toursitComment() {
     const { ctx } = this;
-    ctx.validate(
-      {
-        email: { type: 'email' },
-        nickname: { type: 'string' },
-        website: { type: 'url' },
-        content: { type: 'string' },
-        article_id: { type: 'string' },
-        author: { type: 'int' },
-      }
-    );
+    ctx.validate({
+      email: { type: 'email' },
+      nickname: { type: 'string' },
+      website: { type: 'url' },
+      content: { type: 'string' },
+      article_id: { type: 'string' },
+      author: { type: 'int' },
+    });
 
     const { author, article_id } = ctx.request.body;
     const [ comment ] = await Promise.all([
@@ -62,13 +54,11 @@ class ArticleController extends Controller {
 
   async createComment() {
     const { ctx } = this;
-    ctx.validate(
-      {
-        content: { type: 'string' },
-        article_id: { type: 'string' },
-        author: { type: 'int' },
-      }
-    );
+    ctx.validate({
+      content: { type: 'string' },
+      article_id: { type: 'string' },
+      author: { type: 'int' },
+    });
     const { uid } = ctx.locals;
     const { author, article_id } = ctx.request.body;
     const [ comment ] = await Promise.all([
