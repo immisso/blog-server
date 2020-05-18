@@ -2,7 +2,7 @@
  * @Author: 柒叶
  * @Date: 2020-04-07 10:40:54
  * @Last Modified by: 柒叶
- * @Last Modified time: 2020-05-10 20:29:52
+ * @Last Modified time: 2020-05-15 11:26:20
  */
 
 'use strict';
@@ -21,7 +21,7 @@ module.exports = app => {
       defaultValue: null,
       comment: '文章标题',
     },
-    user_id: {
+    uid: {
       type: INTEGER,
       allowNull: false,
     },
@@ -39,12 +39,12 @@ module.exports = app => {
       defaultValue: null,
       comment: '文本内容',
     },
-    content_html: {
+    html: {
       type: TEXT,
       defaultValue: null,
       comment: 'html内容',
     },
-    content_mark: {
+    markdown: {
       type: TEXT,
       defaultValue: null,
       comment: 'markdown内容',
@@ -91,7 +91,7 @@ module.exports = app => {
   Article.associate = () => {
     app.model.Article.hasMany(app.model.Comment, { as: 'comments' });
     app.model.Article.hasMany(app.model.Favorite);
-    app.model.Article.belongsTo(app.model.User, { as: 'user' });
+    app.model.Article.belongsTo(app.model.User, { as: 'user', foreignKey: 'uid' });
     app.model.Article.belongsTo(app.model.Category, { as: 'category' });
     app.model.Article.belongsTo(app.model.Tag, { as: 'tag' });
   };

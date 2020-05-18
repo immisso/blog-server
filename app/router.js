@@ -13,8 +13,10 @@ module.exports = app => {
   router.get('/api/detail', controller.article.detail);
   router.get('/api/comments', controller.article.comments);
   router.get('/api/tags', controller.article.tags);
+  router.get('/api/isFavorite', controller.article.isFavorite);
 
   router.post('/api/toursit/comment', controller.article.toursitComment);
+  router.post('/api/create/comment', controller.article.createComment);
   router.post('/api/update/favorite', controller.article.updateFavorite);
 
   router.get('/api/draft', controller.write.draft);

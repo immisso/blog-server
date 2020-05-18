@@ -13,7 +13,7 @@ module.exports = {
         defaultValue: null,
         comment: '文章标题',
       },
-      user_id: {
+      uid: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
@@ -30,12 +30,12 @@ module.exports = {
         defaultValue: null,
         comment: '文本内容',
       },
-      content_html: {
+      html: {
         type: Sequelize.TEXT,
         defaultValue: null,
         comment: 'html内容',
       },
-      content_mark: {
+      markdown: {
         type: Sequelize.TEXT,
         defaultValue: null,
         comment: 'markdown内容',
@@ -50,7 +50,7 @@ module.exports = {
         defaultValue: 0,
         comment: '字数',
       },
-      like: {
+      favorite: {
         type: Sequelize.INTEGER,
         defaultValue: 0,
         comment: '点赞数',

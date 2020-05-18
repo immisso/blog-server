@@ -2,7 +2,7 @@
  * @Author: 柒叶
  * @Date: 2020-04-29 17:41:41
  * @Last Modified by: 柒叶
- * @Last Modified time: 2020-05-10 20:24:45
+ * @Last Modified time: 2020-05-15 10:42:18
  */
 
 'use strict';
@@ -34,24 +34,21 @@ class Comment extends Service {
         {
           model: this.ctx.model.Article,
           as: 'article',
-          attributes: [
-            'view',
-            'title',
-            'favorite',
-            'id',
-            'comment',
-          ],
+          attributes: [ 'view', 'title', 'favorite', 'id', 'comment' ],
         },
       ],
     });
   }
 
   async deleteComment(id) {
-    return this.ctx.model.Comment.update({
-      status: 2,
-    }, {
-      where: { id },
-    });
+    return this.ctx.model.Comment.update(
+      {
+        status: 2,
+      },
+      {
+        where: { id },
+      }
+    );
   }
 
   async createToursitComment(params) {
@@ -70,8 +67,37 @@ class Comment extends Service {
     }
     const result = await this.ctx.model.Comment.create({
       ...params,
-      user_id: user.id,
+      uid: user.id,
     });
+    const comment = await this.ctx.model.Comment.findOne({
+      where: { id: result.id },
+      include: [
+        {
+          model: this.ctx.model.User,
+          as: 'user',
+          attributes: [
+            'id',
+            'username',
+            'email',
+            'nickname',
+            'total_view',
+            'total_like',
+            'total_comment',
+            'profession',
+            'avatar',
+          ],
+        },
+      ],
+    });
+    return comment;
+  }
+
+  async createComment(params, uid) {
+    const result = await this.ctx.model.Comment.create({
+      ...params,
+      uid,
+    });
+
     const comment = await this.ctx.model.Comment.findOne({
       where: { id: result.id },
       include: [

@@ -13,7 +13,7 @@ module.exports = {
         defaultValue: null,
         comment: '文章标题',
       },
-      user_id: {
+      uid: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
@@ -35,6 +35,11 @@ module.exports = {
         type: Sequelize.INTEGER,
         defaultValue: 1,
         comment: '1->正常,2->删除',
+      },
+      is_publish: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: 0,
+        comment: '是否已发布',
       },
       category_id: {
         type: Sequelize.INTEGER,

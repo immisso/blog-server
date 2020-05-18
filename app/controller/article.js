@@ -2,7 +2,7 @@
  * @Author: 柒叶
  * @Date: 2020-04-10 07:04:07
  * @Last Modified by: 柒叶
- * @Last Modified time: 2020-05-10 20:32:15
+ * @Last Modified time: 2020-05-17 19:56:43
  */
 'use strict';
 
@@ -12,12 +12,9 @@ const { Success } = require('../lib/response_status');
 class ArticleController extends Controller {
   async detail() {
     const { ctx } = this;
-    ctx.validate(
-      {
-        id: { type: 'id' },
-      },
-      ctx.query
-    );
+    ctx.validate({
+      id: { type: 'id' },
+    }, ctx.query);
     const [ , detail ] = await Promise.all([
       ctx.service.article.viewPlusOne(ctx.query.id),
       ctx.service.article.detail(ctx.query),
@@ -28,36 +25,48 @@ class ArticleController extends Controller {
 
   async comments() {
     const { ctx } = this;
-    ctx.validate(
-      {
-        id: { type: 'id' },
-      },
-      ctx.query
-    );
+    ctx.validate({
+      id: { type: 'id' },
+    }, ctx.query);
     const comments = await ctx.service.comment.comments(ctx.query);
     ctx.body = Success(200, 'Success', comments);
   }
 
   async toursitComment() {
     const { ctx } = this;
-    ctx.validate(
-      {
-        email: { type: 'email' },
-        nickname: { type: 'string' },
-        website: { type: 'url' },
-        content: { type: 'string' },
-        article_id: { type: 'string' },
-        author: { type: 'int' },
-      }
-    );
+    ctx.validate({
+      email: { type: 'email' },
+      nickname: { type: 'string' },
+      website: { type: 'url' },
+      content: { type: 'string' },
+      article_id: { type: 'string' },
+      author: { type: 'int' },
+    });
 
     const { author, article_id } = ctx.request.body;
-    const [ createComment ] = await Promise.all([
+    const [ comment ] = await Promise.all([
       ctx.service.comment.createToursitComment(ctx.request.body),
       ctx.service.user.commentPlusOne(author),
       ctx.service.article.commentPlusOne(article_id),
     ]);
-    ctx.body = Success(200, 'Success', createComment);
+    ctx.body = Success(200, 'Success', comment);
+  }
+
+  async createComment() {
+    const { ctx } = this;
+    ctx.validate({
+      content: { type: 'string' },
+      article_id: { type: 'string' },
+      author: { type: 'int' },
+    });
+    const { uid } = ctx.locals;
+    const { author, article_id } = ctx.request.body;
+    const [ comment ] = await Promise.all([
+      ctx.service.comment.createComment(ctx.request.body, uid),
+      ctx.service.user.commentPlusOne(author),
+      ctx.service.article.commentPlusOne(article_id),
+    ]);
+    ctx.body = Success(200, 'Success', comment);
   }
 
   async tags() {
@@ -71,27 +80,40 @@ class ArticleController extends Controller {
       id: 'id',
       author: 'int',
     });
-    console.log('666666666666666666666');
-    const { id: like_id } = ctx.locals;
+    const { uid: favorite_id } = ctx.locals;
     const { id: article_id, author } = ctx.request.body;
-    const favortie = await ctx.service.favortie.findOne(like_id, article_id);
+    const favortie = await ctx.service.favortie.findOne(favorite_id, article_id);
     if (!favortie) {
-      await ctx.service.favortie.create({ like_id, article_id });
-      console.log('eeeeeeeeeeeeeeeeeeeeeee');
-      console.log(article_id);
-      const result = await ctx.service.article.favoritePlusOne(article_id);
-      console.log(result);
-      await ctx.service.user.likePlusOne(author);
+      await Promise.all([
+        ctx.service.favortie.create({ favorite_id, article_id }),
+        ctx.service.article.favoritePlusOne(article_id),
+        ctx.service.user.favoritePlusOne(author),
+      ]);
+    } else {
+      if (favortie.status === 2) {
+        await Promise.all([
+          ctx.service.favortie.update(favortie.id, 1),
+          ctx.service.article.favoritePlusOne(article_id),
+          ctx.service.user.favoritePlusOne(author),
+        ]);
+      }
+      if (favortie.status === 1) {
+        await Promise.all([
+          ctx.service.favortie.update(favortie.id, 2),
+          ctx.service.article.favoriteReduceOne(article_id),
+          ctx.service.user.favoriteReduceOne(author),
+        ]);
+      }
     }
-    if (favortie.status === 2) {
-      await ctx.service.favortie.update(favortie.id, 1);
-      await ctx.service.article.likePlusOne(article_id);
-      await ctx.service.user.likePlusOne(author);
-    }
-    await ctx.service.favortie.update(favortie.id, 1);
-    await ctx.service.article.favoriteReduceOne(article_id);
-    await ctx.service.user.likeReduceOne(author);
     ctx.body = Success(200, 'Success');
+  }
+  async isFavorite() {
+    const { ctx } = this;
+    ctx.validate({ id: 'id' }, ctx.query);
+    const { uid: favorite_id } = ctx.locals;
+    const { id: article_id } = ctx.query;
+    const favorite = await ctx.service.favortie.findOne(favorite_id, article_id, 1);
+    ctx.body = Success(200, 'Success', favorite !== null);
   }
 }
 

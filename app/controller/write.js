@@ -2,7 +2,7 @@
  * @Author: 柒叶
  * @Date: 2020-04-18 18:24:21
  * @Last Modified by: 柒叶
- * @Last Modified time: 2020-04-27 13:48:36
+ * @Last Modified time: 2020-05-17 19:57:45
  */
 
 'use strict';
@@ -14,30 +14,27 @@ class WriteController extends Controller {
 
   async draft() {
     const { ctx } = this;
-    ctx.validate(
-      {
-        id: { type: 'id' },
-      },
-      ctx.query
-    );
-    const draft = await ctx.service.write.draft(ctx.query);
+    ctx.validate({
+      id: { type: 'id' },
+    }, ctx.query);
+    const draft = await ctx.service.draft.draft(ctx.query);
     ctx.body = Success(200, 'Success', draft);
   }
 
   async drafts() {
     const { ctx } = this;
-    ctx.body = Success(200, 'Success', await ctx.service.write.drafts());
+    const { uid } = ctx.locals;
+    ctx.body = Success(200, 'Success', await ctx.service.draft.drafts(uid));
   }
 
   async createDraft() {
     const { ctx } = this;
-    ctx.validate(
-      {
-        title: { type: 'string' },
-        markdown: { type: 'string' },
-      }
-    );
-    const draft = await ctx.service.write.createDraft(ctx.request.body);
+    ctx.validate({
+      title: { type: 'string' },
+      markdown: { type: 'string' },
+    });
+    const { uid } = ctx.locals;
+    const draft = await ctx.service.draft.createDraft(ctx.request.body, uid);
     ctx.body = Success(200, 'Success', draft);
   }
 
@@ -48,7 +45,7 @@ class WriteController extends Controller {
       title: { type: 'string' },
       markdown: { type: 'string' },
     });
-    await ctx.service.write.updateDraft(ctx.request.body);
+    await ctx.service.draft.updateDraft(ctx.request.body);
     ctx.body = Success(200, 'Success');
   }
 
@@ -60,11 +57,10 @@ class WriteController extends Controller {
       html: { type: 'string' },
       selectedTag: { type: 'int' },
       selectedCategory: { type: 'int' },
-      coverImageUrl: { type: 'string' },
+      coverImageUrl: { type: 'string', required: false },
     });
-    console.log('dddddddddddddddddddddddddddddddd');
-    console.log(ctx.request.body);
-    await ctx.service.write.createPublish(ctx.request.body);
+    const { uid } = ctx.locals;
+    await ctx.service.article.createPublish(ctx.request.body, uid);
     ctx.body = Success(200, 'Success');
   }
 }
