@@ -1,14 +1,17 @@
 # 个人博客网站服务端
-> 如果这个项目对你有用，麻烦动动手指点star，谢谢！
+![](https://img.shields.io/badge/Egg-%5E2.15.1-brightgreen)
+![](https://img.shields.io/badge/mysql2-%5E2.1.0-brightgreen)
+![](https://img.shields.io/badge/egg--sequelize-%5E5.2.1-brightgreen)
+![](https://img.shields.io/badge/sequelize--cli-%5E5.5.1-brightgreen)
 
 该项目是[个人博客](https://github.com/immisso/blog-web)项目的服务端部分，采用Node开发。使用了[Egg](https://eggjs.org/zh-cn/)框架。因为是前后端分离，服务端只提供API供前端使用。接下来将对该项目进行大致的说明。后续也会写一份更为详细的免费的《Node全栈开发——带你从零开发前后端分离的个人网站》教程，再次带你从零开发到部署上线的全过程。敬请期待！
 
 ## 技术栈
 该项目采用Node开发，为了方便大家学习交流，我想在正式启动和运行项目前，有必要对项目技术栈做一个大致说明：
 
-+ 语言 `Node`
-+ 框架 `Egg`
-+ 数据库 `Mysql`
+- [x] 语言 `Node`
+- [x] 框架 `Egg`
+- [x] 数据库 `Mysql`
 
 
 ## 如何开始
@@ -87,5 +90,5 @@ $ yarn dev
 
 
 ## 特别说明
-该项目会长期更新。会逐步完善其他许多功能。如写教程功能、邮件提醒、用户管理、主题风格、代码风格等。欢迎长期关注，请您star、star、star！谢谢
+该项目会长期更新。会逐步完善其他许多功能。如写教程功能、邮件提醒、用户管理、主题风格、代码风格等。欢迎长期关注。
 

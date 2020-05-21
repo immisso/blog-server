@@ -24,7 +24,9 @@ module.exports = app => {
 
   router.post('/api/create/draft', controller.write.createDraft);
   router.post('/api/update/draft', controller.write.updateDraft);
+  router.post('/api/delete/draft', controller.write.deleteDraft);
   router.post('/api/create/publish', controller.write.createPublish);
+
 
   router.get('/api/admin/comments', controller.admin.comments);
   router.get('/api/admin/categories', controller.admin.categories);
