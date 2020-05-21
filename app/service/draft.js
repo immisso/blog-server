@@ -2,7 +2,7 @@
  * @Author: 柒叶
  * @Date: 2020-05-11 17:23:12
  * @Last Modified by: 柒叶
- * @Last Modified time: 2020-05-17 20:01:20
+ * @Last Modified time: 2020-05-19 11:14:41
  */
 
 'use strict';
@@ -16,7 +16,7 @@ class Draft extends Service {
 
   async drafts(uid) {
     return this.ctx.model.Draft.findAll({
-      where: { uid },
+      where: { uid, status: 1 },
       attributes: [ 'id', 'title', 'is_publish', 'updatedAt' ],
     });
   }
@@ -35,6 +35,14 @@ class Draft extends Service {
     );
   }
 
+  async deleteDraft(id) {
+    return this.ctx.model.Draft.update({
+      status: 2,
+    }, {
+      where: { id },
+    });
+  }
+
   async updatePublishStatus(id) {
     return this.ctx.model.Draft.update(
       { is_publish: 1 },
@@ -43,6 +51,7 @@ class Draft extends Service {
       }
     );
   }
+
 
 }
 

@@ -2,7 +2,7 @@
  * @Author: 柒叶
  * @Date: 2020-04-18 18:24:21
  * @Last Modified by: 柒叶
- * @Last Modified time: 2020-05-17 19:57:45
+ * @Last Modified time: 2020-05-19 11:17:07
  */
 
 'use strict';
@@ -47,6 +47,14 @@ class WriteController extends Controller {
     });
     await ctx.service.draft.updateDraft(ctx.request.body);
     ctx.body = Success(200, 'Success');
+  }
+
+  async deleteDraft() {
+    const { ctx } = this;
+    ctx.validate({ id: 'int' });
+    const { id } = ctx.request.body;
+    await ctx.service.draft.deleteDraft(id);
+    ctx.body = Success(200, 'Success', { id });
   }
 
   async createPublish() {
